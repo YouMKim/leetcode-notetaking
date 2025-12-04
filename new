@@ -1,0 +1,14 @@
+#!/bin/bash
+# Simple wrapper script to create a new LeetCode problem
+# Usage: ./new 128
+#        ./new 128 "Two Sum" Easy Arrays
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Use venv if it exists, otherwise use system python3
+if [ -f "$SCRIPT_DIR/venv/bin/python" ]; then
+    "$SCRIPT_DIR/venv/bin/python" "$SCRIPT_DIR/utils/create_problem.py" "$@"
+else
+    python3 "$SCRIPT_DIR/utils/create_problem.py" "$@"
+fi
+
