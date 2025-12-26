@@ -1,7 +1,7 @@
 #!/bin/bash
 # Simple wrapper script to create a new LeetCode problem
 # Usage: ./new 128
-#        ./new 128 "Two Sum" Easy Arrays
+#        ./new 128 "Two Sum" Easy Array
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 

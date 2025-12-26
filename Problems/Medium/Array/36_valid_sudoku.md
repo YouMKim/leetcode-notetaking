@@ -133,6 +133,35 @@ class Solution:
 
 ### How does the mapping of the square work?
 
+block_index = (row // BLOCK_HEIGHT) * BLOCKS_PER_ROW + (col // BLOCK_WIDTH)
+
+Part 1: row // BLOCK_HEIGHT
+
+"Which horizontal row of blocks am I in?"
+
+Am I in the first row of blocks? (rows 0-2 in Sudoku)
+Did I cross the threshold into the second row of blocks? (rows 3-5)
+Did I cross into the third row of blocks? (rows 6-8)
+
+
+Part 2: * BLOCKS_PER_ROW
+
+"Now that I know I'm in block-row X, skip over all the blocks in the previous rows."
+
+If I'm in block-row 0: skip 0 blocks (0 * 3 = 0)
+If I'm in block-row 1: skip the first 3 blocks (1 * 3 = 3)
+If I'm in block-row 2: skip the first 6 blocks (2 * 3 = 6)
+
+
+Part 3: + (col // BLOCK_WIDTH)
+
+"Within my current row of blocks, which block column am I in?"
+
+Am I in the leftmost block? (+0)
+Did I cross into the middle block? (+1)
+Did I cross into the rightmost block? (+2)
+
+
 The formula `square = row // 3 * WIDTH + col // 3` maps a cell's (row, col) coordinates to a square index (0-8).
 
 **Step 1: Determine row block**
