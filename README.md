@@ -46,8 +46,13 @@ You have three ways to create a new problem template:
 
 #### Option A: Using the wrapper script (easiest)
 ```bash
-# Auto-fetch from LeetCode API (requires requests library)
+# Auto-fetch everything from LeetCode API (requires requests library)
 ./new 128
+
+# Override just the category
+./new 128 --cat "Two Pointers"
+# or short form
+./new 128 -c "Two Pointers"
 
 # Manual specification
 ./new 128 "Two Sum" Easy Array
@@ -57,6 +62,9 @@ You have three ways to create a new problem template:
 ```bash
 # Auto-fetch from LeetCode
 make new NUM=128
+
+# Override category
+make new NUM=128 CAT="Two Pointers"
 
 # With difficulty and category
 make new NUM=128 DIFF=Medium CAT=Array
@@ -69,6 +77,11 @@ make new NUM=1 TITLE="Two Sum" DIFF=Easy CAT=Array
 ```bash
 # Auto-fetch from LeetCode (requires requests)
 python3 utils/create_problem.py 128
+
+# Override just the category
+python3 utils/create_problem.py 128 --cat "Two Pointers"
+# or short form
+python3 utils/create_problem.py 128 -c "Two Pointers"
 
 # Manual specification
 python3 utils/create_problem.py 128 "Two Sum" Easy Array
@@ -88,6 +101,8 @@ The script will automatically fetch:
 - Problem title
 - Difficulty level
 - Category (from tags)
+- **Problem description** (includes examples)
+- **Constraints**
 
 ### Partial Manual Specification
 
@@ -99,6 +114,9 @@ You can provide partial information and let the script fetch the rest:
 
 # Fetch only category
 ./new 128 "Two Sum" Easy
+
+# Override just the category (auto-fetch everything else)
+./new 128 -c "Two Pointers"
 ```
 
 ### Full Manual Specification
@@ -114,9 +132,8 @@ If you don't have `requests` installed or want to specify everything:
 Each problem file includes:
 
 - **Problem metadata**: Number, title, difficulty, LeetCode link
-- **Description**: Problem description section
-- **Examples**: Input/output examples with explanations
-- **Constraints**: Problem constraints
+- **Description**: Problem description (automatically fetched, includes examples)
+- **Constraints**: Problem constraints (automatically fetched)
 - **Approach**: Your solution approach
 - **Solution Code**: Your implementation
 - **Time & Space Complexity**: Analysis
@@ -124,13 +141,18 @@ Each problem file includes:
 - **Alternative Solutions**: Multiple approaches if applicable
 - **Related Problems**: Links to similar problems
 
+> **Note**: The description and constraints are automatically populated when using auto-fetch. Examples are included within the description section.
+
 ## 🛠️ Features
 
-- ✅ **Auto-fetching**: Automatically retrieves problem metadata from LeetCode API
+- ✅ **Auto-fetching**: Automatically retrieves problem metadata, description, and constraints from LeetCode API
+- ✅ **Category Override**: Use `--cat` or `-c` flag to override the auto-fetched category
 - ✅ **Organized Structure**: Problems organized by difficulty and category
 - ✅ **Template Generation**: Creates markdown templates with all necessary sections
+- ✅ **Pre-populated Content**: Description and constraints are automatically filled in
 - ✅ **Assets Directory**: Automatically creates `assets/` folder for each category
 - ✅ **Multiple Interfaces**: Command-line script, Makefile, and wrapper script
+- ✅ **Duplicate Protection**: Prompts before overwriting existing files
 
 ## 📦 Dependencies
 
@@ -155,6 +177,18 @@ Each problem file includes:
    ```bash
    ./new 128 "Problem Title" Medium Array
    ```
+
+### Override category only
+
+If you want to change just the category while auto-fetching everything else:
+
+```bash
+# Override category to "Two Pointers"
+./new 125 -c "Two Pointers"
+
+# Override category to "Hash Table"
+./new 242 --cat "Hash Table"
+```
 
 ### File already exists?
 
